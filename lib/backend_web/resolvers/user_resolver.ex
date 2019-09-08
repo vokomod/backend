@@ -1,6 +1,9 @@
 defmodule BackendWeb.Resolvers.UserResolver do
   alias Backend.Accounts
-  def users(_, _, _) do
+  def users(_, _, %{context: context}) do
+    IO.puts "------------------------------------"
+    IO.inspect(context)
+    IO.puts "------------------------------------"
     {:ok, Accounts.list_users}
   end
 

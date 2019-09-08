@@ -3,6 +3,7 @@ defmodule BackendWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug BackendWeb.Plugs.Context
   end
 
   scope "/api" do

@@ -1,6 +1,8 @@
 defmodule BackendWeb.Schema do
   use Absinthe.Schema
   alias BackendWeb.Resolvers
+  alias BackendWeb.Schema.Middleware
+
 
   import_types(BackendWeb.Schema.Types)
 
@@ -8,6 +10,7 @@ defmodule BackendWeb.Schema do
   query do
     @desc "get list of all users"
     field :users, list_of(:user_type) do
+      middleware(Middleware.Authorize, :any)
       resolve(&Resolvers.UserResolver.users/3)
     end
   end
@@ -20,9 +23,9 @@ defmodule BackendWeb.Schema do
     end
 
     @desc "login a user and return token"
-  field :login_user, type: :session_type do
-    arg(:input, non_null(:session_input_type))
-    resolve(&Resolvers.SessionResolver.login_user/3)
+    field :login_user, type: :session_type do
+      arg(:input, non_null(:session_input_type))
+      resolve(&Resolvers.SessionResolver.login_user/3)
+    end
   end
-end
 end

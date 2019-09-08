@@ -7,7 +7,7 @@ defmodule Backend.Accounts.Session do
 
     case check_password(user, args) do
       true -> {:ok, user}
-      _ -> {:error, "login errors"}
+      _ -> {:error, "incorrect login/password"}
     end
   end
 
